@@ -6,40 +6,40 @@ const int NUM_POINTS = 3;
 
 void init()
 {
-	// ¶¨ÒåÈı½ÇĞÎµÄÈı¸öµã
+	// å®šä¹‰ä¸‰è§’å½¢çš„ä¸‰ä¸ªç‚¹
 	vec2 vertices[3] = {
 		vec2(-0.75, -0.75), vec2(0.0, 0.75), vec2(0.75, -0.75)
 	};
 
-	// ´´½¨¶¥µãÊı×é¶ÔÏó
+	// åˆ›å»ºé¡¶ç‚¹æ•°ç»„å¯¹è±¡
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
-	// ´´½¨²¢³õÊ¼»¯¶¥µã»º´æ¶ÔÏó
+	// åˆ›å»ºå¹¶åˆå§‹åŒ–é¡¶ç‚¹ç¼“å­˜å¯¹è±¡
 	GLuint buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	// ¶ÁÈ¡×ÅÉ«Æ÷²¢Ê¹ÓÃ
+	// è¯»å–ç€è‰²å™¨å¹¶ä½¿ç”¨
 	GLuint program = InitShader("vshader.glsl", "fshader.glsl");
 	glUseProgram(program);
 
-	// ´Ó¶¥µã×ÅÉ«Æ÷ÖĞ³õÊ¼»¯¶¥µãµÄÎ»ÖÃ
+	// ä»é¡¶ç‚¹ç€è‰²å™¨ä¸­åˆå§‹åŒ–é¡¶ç‚¹çš„ä½ç½®
 	GLuint location = glGetAttribLocation(program, "vPosition");
 	glEnableVertexAttribArray(location);
 	glVertexAttribPointer(location, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 
-	// °×É«±³¾°
+	// ç™½è‰²èƒŒæ™¯
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 }
 
 void display(void)
 {
-	// ÇåÀí´°¿Ú
+	// æ¸…ç†çª—å£
 	glClear(GL_COLOR_BUFFER_BIT);
-	// »æÖÆËùÓĞµã
+	// ç»˜åˆ¶æ‰€æœ‰ç‚¹
 	glDrawArrays(GL_TRIANGLES, 0, NUM_POINTS);
 	glFlush();
 }
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGBA);
 	glutInitWindowSize(512, 512);
 
-	// ¼ì²âÊÇ·ñÊ¹ÓÃÁËfreeglut£¬²¢¼ì²âÊÇ·ñÊ¹ÓÃµ½ÁËOpenGL 3.3
+	// æ£€æµ‹æ˜¯å¦ä½¿ç”¨äº†freeglutï¼Œå¹¶æ£€æµ‹æ˜¯å¦ä½¿ç”¨åˆ°äº†OpenGL 3.3
 	glutInitContextVersion(3, 3);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
 
