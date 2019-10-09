@@ -2,14 +2,15 @@ cmake_minimum_required(VERSION 3.0)
 
 project(main)
 
-ADD_LIBRARY(GfxModule
-    ${CMAKE_SOURCE_DIR}/common/InitShader.cpp
-)
+if (WIN32)
+    set(OpenGlLinkers -lglew32 -lglu32 -lfreeglut -lopengl32)
+elseif (UNIX)
+    set(OpenGlLinkers -lglut -lGLU -lGL -lGLEW)
+endif ()
 
-target_link_libraries(GfxModule -lglew32)
-target_link_libraries(GfxModule -lglu32)
-target_link_libraries(GfxModule -lfreeglut)
-target_link_libraries(GfxModule -lopengl32)
+ADD_LIBRARY(GfxModule ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
+
+target_link_libraries(GfxModule ${OpenGlLinkers})
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
