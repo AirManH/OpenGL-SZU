@@ -76,4 +76,5 @@ install_manifest.txt
 !/**/glew-2.1.0/**/*.*
 
 # build
-/build/
+build/
+.idea/
