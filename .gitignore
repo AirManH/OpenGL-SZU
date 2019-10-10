@@ -70,3 +70,10 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 
+# libs of freeglut and glew for Windows
+# should be more simple
+!/**/freeglut-3.0.0-MinGW/**/*.*
+!/**/glew-2.1.0/**/*.*
+
+# build
+/build/
