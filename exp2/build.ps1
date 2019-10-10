@@ -1,4 +1,3 @@
-﻿mkdir build
+﻿cmake -G "MinGW Makefiles" -S . -B ./build
 cd .\build
-cmake -G "MinGW Makefiles" ..
 mingw32-make.exe
