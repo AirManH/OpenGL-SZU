@@ -20,35 +20,35 @@ const vec3 YELLOW(1.0, 1.0, 0.0);
 const vec3 ORANGE(1.0, 0.65, 0.0);
 const vec3 PURPLE(0.8, 0.0, 0.8);
 
-// Ö÷´°¿Ú±äÁ¿
+// ä¸»çª—å£å˜é‡
 const int SQUARE_NUM = 6;
 const int SQUARE_NUM_POINTS = 4 * SQUARE_NUM;
 int mainWindow;
 int mainWindowMenu;
 int mainWindowSubmenu;
-int width = 600;    // Ö÷´°¿Ú¿í¶È
-int height = 600;    // Ö÷´°¿Ú¸ß¶È
-double offsetAngle = 0;    // ½Ç¶ÈÆ«ÒÆÁ¿
-double delta = 0.05;    // Ã¿´Î¸Ä±ä½Ç¶ÈÆ«ÒÆµÄ±ä»¯Á¿
+int width = 600;    // ä¸»çª—å£å®½åº¦
+int height = 600;    // ä¸»çª—å£é«˜åº¦
+double offsetAngle = 0;    // è§’åº¦åç§»é‡
+double delta = 0.05;    // æ¯æ¬¡æ”¹å˜è§’åº¦åç§»çš„å˜åŒ–é‡
 vec3 mainWindowSquareColor = WHITE;
 
-// ×Ó´°¿Ú±äÁ¿
+// å­çª—å£å˜é‡
 const int ELLIPSE_NUM_POINTS = 100;
 int subWindow;
 int subWindowMenu;
 vec3 subWindowObjectColor = RED;
 
-// »ñµÃÔ²ÉÏµÄµã
+// è·å¾—åœ†ä¸Šçš„ç‚¹
 vec2 getEllipseVertex(vec2 center, double scale, double verticleScale, double angle)
 {
 	vec2 vertex(sin(angle), cos(angle));
 	vertex += center;
 	vertex *= scale;
-	vertex.y *= verticleScale;    // ĞŞ¸Ä´¹Ö±·ÖÁ¿
+	vertex.y *= verticleScale;    // ä¿®æ”¹å‚ç›´åˆ†é‡
 	return vertex;
 }
 
-// Éú³ÉÔ²ÉÏ¶¥µãµÄÊôĞÔ
+// ç”Ÿæˆåœ†ä¸Šé¡¶ç‚¹çš„å±æ€§
 void generateEllipsePoints(vec2 vertices[], vec3 colors[], vec3 color, int startVertexIndex, int numPoints,
 	vec2 center, double scale, double verticalScale)
 {
@@ -63,13 +63,13 @@ void generateEllipsePoints(vec2 vertices[], vec3 colors[], vec3 color, int start
 	}
 }
 
-// »ñµÃÕı·½ĞÎµÄÃ¿¸ö½Ç¶È
+// è·å¾—æ­£æ–¹å½¢çš„æ¯ä¸ªè§’åº¦
 double getSquareAngle(int point)
 {
     return (M_PI / 4 + (M_PI / 2 * point)) + offsetAngle;
 }
 
-// Éú³ÉÕı·½ĞÎÉÏ¶¥µãµÄÊôĞÔ
+// ç”Ÿæˆæ­£æ–¹å½¢ä¸Šé¡¶ç‚¹çš„å±æ€§
 void generateSquarePoints(vec2 vertices[], vec3 colors[], int squareNum, int startVertexIndex) {
 	double scale = 0.90;
 	double scaleAdjust = scale / squareNum;
@@ -92,12 +92,12 @@ void generateSquarePoints(vec2 vertices[], vec3 colors[], int squareNum, int sta
 	}
 }
 
-// ¿ÕÏĞ»Øµ÷º¯Êı
+// ç©ºé—²å›è°ƒå‡½æ•°
 void idleFunction()
 {
-	// ¸Ä±ä½Ç¶ÈµÄÆ«ÒÆÁ¿
+	// æ”¹å˜è§’åº¦çš„åç§»é‡
     offsetAngle += delta;
-    // ±ê¼ÇÖ÷´°¿ÚÖØ»æ
+    // æ ‡è®°ä¸»çª—å£é‡ç»˜
 	glutPostWindowRedisplay(mainWindow);
 }
 
@@ -107,42 +107,42 @@ void mainWindowInit()
 	vec2 vertices[SQUARE_NUM * 4];
 	vec3 colors[SQUARE_NUM * 4];
 
-	// ´´½¨Ö÷´°¿ÚÖĞ¶à¸öÕı·½ĞÎ
+	// åˆ›å»ºä¸»çª—å£ä¸­å¤šä¸ªæ­£æ–¹å½¢
 	generateSquarePoints(vertices, colors, SQUARE_NUM, 0);
 
-	// ´´½¨¶¥µãÊı×é¶ÔÏó
+	// åˆ›å»ºé¡¶ç‚¹æ•°ç»„å¯¹è±¡
 	GLuint vao[1];
 	glGenVertexArrays(1, vao);
 	glBindVertexArray(vao[0]);
 
-	// ´´½¨²¢³õÊ¼»¯¶¥µã»º´æ¶ÔÏó
+	// åˆ›å»ºå¹¶åˆå§‹åŒ–é¡¶ç‚¹ç¼“å­˜å¯¹è±¡
 	GLuint buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(colors), NULL, GL_STATIC_DRAW);
 
-	// ·Ö±ğ¶ÁÈ¡Êı¾İ
+	// åˆ†åˆ«è¯»å–æ•°æ®
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);
 
-	// ¶ÁÈ¡×ÅÉ«Æ÷²¢Ê¹ÓÃ
+	// è¯»å–ç€è‰²å™¨å¹¶ä½¿ç”¨
 	GLuint program = InitShader("vshader.glsl", "fshader.glsl");
 	glUseProgram(program);
 
-	// ´Ó¶¥µã×ÅÉ«Æ÷ÖĞ³õÊ¼»¯¶¥µãµÄÎ»ÖÃ
+	// ä»é¡¶ç‚¹ç€è‰²å™¨ä¸­åˆå§‹åŒ–é¡¶ç‚¹çš„ä½ç½®
 	GLuint pLocation = glGetAttribLocation(program, "vPosition");
 	glEnableVertexAttribArray(pLocation);
 	glVertexAttribPointer(pLocation, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	// ´ÓÆ¬Ôª×ÅÉ«Æ÷ÖĞ³õÊ¼»¯¶¥µãµÄÑÕÉ«
+	// ä»ç‰‡å…ƒç€è‰²å™¨ä¸­åˆå§‹åŒ–é¡¶ç‚¹çš„é¢œè‰²
 	GLuint cLocation = glGetAttribLocation(program, "vColor");
 	glEnableVertexAttribArray(cLocation);
 	glVertexAttribPointer(cLocation, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertices)));
 	
-	// ºÚÉ«±³¾°
+	// é»‘è‰²èƒŒæ™¯
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 }
 
-// ²Ëµ¥»Øµ÷º¯Êı
+// èœå•å›è°ƒå‡½æ•°
 void mainWindowMenuEvents(int menuChoice)
 {
 	switch (menuChoice) {
@@ -171,41 +171,41 @@ void mainWindowMenuEvents(int menuChoice)
 		mainWindowSquareColor = PURPLE;
 		break;
 
-    /*ÔÚ´Ë´¦Ìí¼Ó¿ØÖÆĞı×ª¶¯»­¿ªÊ¼ºÍÍ£Ö¹µÄ²Ëµ¥Ñ¡Ïî*/
+    /*åœ¨æ­¤å¤„æ·»åŠ æ§åˆ¶æ—‹è½¬åŠ¨ç”»å¼€å§‹å’Œåœæ­¢çš„èœå•é€‰é¡¹*/
 
 	}
 
-    // ±ê¼ÇmainWindowÖ÷´°¿Ú½øĞĞÖØ»æ
+    // æ ‡è®°mainWindowä¸»çª—å£è¿›è¡Œé‡ç»˜
 	glutPostWindowRedisplay(mainWindow);
 }
 
-// ´´½¨ºÍÉèÖÃÖ÷´°¿Ú²Ëµ¥
+// åˆ›å»ºå’Œè®¾ç½®ä¸»çª—å£èœå•
 void mainWindowSetupMenu()
 {
-	// ´´½¨×Ó²Ëµ¥£¬²¢×¢²á²Ëµ¥»Øµ÷º¯ÊımainWindowMenuEvents
+	// åˆ›å»ºå­èœå•ï¼Œå¹¶æ³¨å†Œèœå•å›è°ƒå‡½æ•°mainWindowMenuEvents
     mainWindowSubmenu = glutCreateMenu(mainWindowMenuEvents);
 	glutAddMenuEntry("Yellow", MENU_CHOICE_YELLOW);
 	glutAddMenuEntry("Orange", MENU_CHOICE_ORANGE);
 	glutAddMenuEntry("Purple", MENU_CHOICE_PURPLE);
 	glutAddMenuEntry("Black", MENU_CHOICE_BLACK);
 
-    // ´´½¨Ö÷²Ëµ¥
+    // åˆ›å»ºä¸»èœå•
 	mainWindowMenu = glutCreateMenu(mainWindowMenuEvents);
 	glutAddMenuEntry("Red", MENU_CHOICE_RED);
 	glutAddMenuEntry("Green", MENU_CHOICE_GREEN);
 	glutAddMenuEntry("Blue", MENU_CHOICE_BLUE);
 	glutAddMenuEntry("White", MENU_CHOICE_WHITE);
     
-    // ÔÚÖ÷²Ëµ¥ÖĞÌí¼Ó×Ó²Ëµ¥
+    // åœ¨ä¸»èœå•ä¸­æ·»åŠ å­èœå•
 	glutAddSubMenu("Other Square Colors", mainWindowSubmenu);
     
-    // ¹ØÁªÊó±êÓÒ¼ü¼¤»î²Ëµ¥
+    // å…³è”é¼ æ ‡å³é”®æ¿€æ´»èœå•
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
 void mainWindowDisplay()
 {
-	mainWindowInit();    // ÖØ»æÊ±Ğ´ÈëĞÂµÄÑÕÉ«Êı¾İ
+	mainWindowInit();    // é‡ç»˜æ—¶å†™å…¥æ–°çš„é¢œè‰²æ•°æ®
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for (int i = 0; i < SQUARE_NUM; i++) {
@@ -215,20 +215,20 @@ void mainWindowDisplay()
 	glutSwapBuffers();
 }
 
-// Ö÷´°¿Ú¼üÅÌ»Øµ÷º¯Êı
+// ä¸»çª—å£é”®ç›˜å›è°ƒå‡½æ•°
 void mainWindowKeyboard(unsigned char key, int x, int y)
 {
-	/*ÔÚ´ËÌí¼Ó°´ÏÂEsc°´¼üÍË³öµÄ´úÂë*/
+	/*åœ¨æ­¤æ·»åŠ æŒ‰ä¸‹EscæŒ‰é”®é€€å‡ºçš„ä»£ç */
 }
 
-// Ö÷´°¿ÚÊó±ê»Øµ÷º¯Êı
+// ä¸»çª—å£é¼ æ ‡å›è°ƒå‡½æ•°
 void mainWindowMouse(int button, int state, int x, int y)
 {
 	if (button == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN) {
-		// °´ÏÂÊó±êÖĞ¼ü£¬Ö¸¶¨µ±Ã»ÓĞÆäËûÊÂ¼ş´¦ÀíÊ±£¬È¥µ÷ÓÃidleFunction()Õâ¸öº¯Êı
+		// æŒ‰ä¸‹é¼ æ ‡ä¸­é”®ï¼ŒæŒ‡å®šå½“æ²¡æœ‰å…¶ä»–äº‹ä»¶å¤„ç†æ—¶ï¼Œå»è°ƒç”¨idleFunction()è¿™ä¸ªå‡½æ•°
 		glutIdleFunc(idleFunction);
 	} else if (button == GLUT_MIDDLE_BUTTON && state == GLUT_UP) {
-		// ÊÍ·ÅÊó±êÖĞ¼ü£¬½â³ıµ÷ÓÃ
+		// é‡Šæ”¾é¼ æ ‡ä¸­é”®ï¼Œè§£é™¤è°ƒç”¨
 		glutIdleFunc(NULL);
 	}
 }
@@ -239,51 +239,51 @@ void subWindowInit()
 	vec2 vertices[ELLIPSE_NUM_POINTS];
 	vec3 colors[ELLIPSE_NUM_POINTS];
 
-	// ´´½¨×Ó´°¿ÚÖĞµÄÍÖÔ²
+	// åˆ›å»ºå­çª—å£ä¸­çš„æ¤­åœ†
 	generateEllipsePoints(vertices, colors, subWindowObjectColor, 0, ELLIPSE_NUM_POINTS,
 		vec2(0.0, 0.0), 0.7, 0.5);
 
-	// ´´½¨¶¥µãÊı×é¶ÔÏó
+	// åˆ›å»ºé¡¶ç‚¹æ•°ç»„å¯¹è±¡
 	GLuint vao[1];
 	glGenVertexArrays(1, vao);
 	glBindVertexArray(vao[0]);
 
-	// ´´½¨²¢³õÊ¼»¯¶¥µã»º´æ¶ÔÏó
+	// åˆ›å»ºå¹¶åˆå§‹åŒ–é¡¶ç‚¹ç¼“å­˜å¯¹è±¡
 	GLuint buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(colors), NULL, GL_STATIC_DRAW);
 
-	// ·Ö±ğ¶ÁÈ¡Êı¾İ
+	// åˆ†åˆ«è¯»å–æ•°æ®
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);
 
-	// ¶ÁÈ¡×ÅÉ«Æ÷²¢¸´ÓÃ
+	// è¯»å–ç€è‰²å™¨å¹¶å¤ç”¨
 	GLuint program = InitShader("vshader.glsl", "fshader.glsl");
 	glUseProgram(program);
 
-	// ´Ó¶¥µã×ÅÉ«Æ÷ÖĞ³õÊ¼»¯¶¥µãµÄÎ»ÖÃ
+	// ä»é¡¶ç‚¹ç€è‰²å™¨ä¸­åˆå§‹åŒ–é¡¶ç‚¹çš„ä½ç½®
 	GLuint pLocation = glGetAttribLocation(program, "vPosition");
 	glEnableVertexAttribArray(pLocation);
 	glVertexAttribPointer(pLocation, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	// ´ÓÆ¬Ôª×ÅÉ«Æ÷ÖĞ³õÊ¼»¯¶¥µãµÄÑÕÉ«
+	// ä»ç‰‡å…ƒç€è‰²å™¨ä¸­åˆå§‹åŒ–é¡¶ç‚¹çš„é¢œè‰²
 	GLuint cLocation = glGetAttribLocation(program, "vColor");
 	glEnableVertexAttribArray(cLocation);
 	glVertexAttribPointer(cLocation, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertices)));
 
-	// ÉèÖÃ×Ó´°¿Ú±³¾°ÑÕÉ«Îª°×É«
+	// è®¾ç½®å­çª—å£èƒŒæ™¯é¢œè‰²ä¸ºç™½è‰²
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 }
 
 void subWindowDisplay()
 {
-	subWindowInit();    // ÖØ»æÊ±Ğ´ÈëĞÂµÄÑÕÉ«Êı¾İ
+	subWindowInit();    // é‡ç»˜æ—¶å†™å…¥æ–°çš„é¢œè‰²æ•°æ®
 	glClear(GL_COLOR_BUFFER_BIT);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, ELLIPSE_NUM_POINTS);
 	glutSwapBuffers();
 }
 
-// ×Ó´°¿Ú¼üÅÌ»Øµ÷º¯Êı
+// å­çª—å£é”®ç›˜å›è°ƒå‡½æ•°
 void subWindowKeyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
@@ -310,7 +310,7 @@ void subWindowKeyboard(unsigned char key, int x, int y)
 		break;
 	}
 
-    // ±ê¼ÇsubWindow×Ó´°¿Ú½øĞĞÖØ»æ
+    // æ ‡è®°subWindowå­çª—å£è¿›è¡Œé‡ç»˜
 	glutPostWindowRedisplay(subWindow);
 }
 
@@ -324,7 +324,7 @@ void printHelp() {
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);    // ÆôÓÃË«ÖØ»º³å
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);    // å¯ç”¨åŒé‡ç¼“å†²
 	glutInitWindowSize(width, height);
 	mainWindow = glutCreateWindow("Interaction and Submenu");
 
@@ -334,17 +334,17 @@ int main(int argc, char **argv)
 	mainWindowInit();
 	mainWindowSetupMenu();
 	glutDisplayFunc(mainWindowDisplay);
-    // ÔÚÖ÷´°¿ÚÖĞÖ¸¶¨º¯ÊımainWindowMouse£¬ÔÚÊó±ê°´ÏÂ»òÊÍ·ÅÊ±½«»á±»µ÷ÓÃ
+    // åœ¨ä¸»çª—å£ä¸­æŒ‡å®šå‡½æ•°mainWindowMouseï¼Œåœ¨é¼ æ ‡æŒ‰ä¸‹æˆ–é‡Šæ”¾æ—¶å°†ä¼šè¢«è°ƒç”¨
 	glutMouseFunc(mainWindowMouse);
 
-	// ´´½¨×Ó´°¿Ú
+	// åˆ›å»ºå­çª—å£
 	subWindow = glutCreateSubWindow(mainWindow, 0, 0, width / 4, height / 4);
 	subWindowInit();
 	glutDisplayFunc(subWindowDisplay);
-    // ÔÚ×Ó´°¿ÚÖĞÖ¸¶¨º¯ÊısubWindowKeyboard£¬µ±Ò»¸öÄÜ¹»Éú³ÉASCII×Ö·ûµÄ¼üÊÍ·ÅÊ±»á±»µ÷ÓÃ
+    // åœ¨å­çª—å£ä¸­æŒ‡å®šå‡½æ•°subWindowKeyboardï¼Œå½“ä¸€ä¸ªèƒ½å¤Ÿç”ŸæˆASCIIå­—ç¬¦çš„é”®é‡Šæ”¾æ—¶ä¼šè¢«è°ƒç”¨
 	glutKeyboardFunc(subWindowKeyboard);
 
-	// Êä³ö°ïÖúĞÅÏ¢
+	// è¾“å‡ºå¸®åŠ©ä¿¡æ¯
 	printHelp();
 
 	glutMainLoop();
