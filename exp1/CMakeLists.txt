@@ -23,8 +23,8 @@ endif ()
 # include
 
 if (WIN32)
-    include_directories(${CMAKE_SOURCE_DIR}/glew-2.1.0/include/GL)
-    include_directories(${CMAKE_SOURCE_DIR}/freeglut-3.0.0-MinGW/include/GL)
+    include_directories(${CMAKE_SOURCE_DIR}/glew-2.1.0/include/)
+    include_directories(${CMAKE_SOURCE_DIR}/freeglut-3.0.0-MinGW/include/)
 endif ()
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -46,6 +46,7 @@ if (WIN32)
             ${CMAKE_SOURCE_DIR}/glew-2.1.0/bin/Release/x64/glew32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
             )
 endif ()
+
 # copy shader
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

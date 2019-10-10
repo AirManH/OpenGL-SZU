@@ -74,3 +74,6 @@ install_manifest.txt
 # should be more simple
 !/**/freeglut-3.0.0-MinGW/**/*.*
 !/**/glew-2.1.0/**/*.*
+
+# build
+/build/
