@@ -10,6 +10,8 @@ const int MENU_CHOICE_BLUE = 4;
 const int MENU_CHOICE_YELLOW = 5;
 const int MENU_CHOICE_ORANGE = 6;
 const int MENU_CHOICE_PURPLE = 7;
+const int MENU_START_ROTATE = 8;
+const int MENU_END_ROTATE = 9;
 
 const vec3 WHITE(1.0, 1.0, 1.0);
 const vec3 BLACK(0.0, 0.0, 0.0);
@@ -172,7 +174,12 @@ void mainWindowMenuEvents(int menuChoice)
 		break;
 
     /*在此处添加控制旋转动画开始和停止的菜单选项*/
-
+    case MENU_START_ROTATE:
+		glutIdleFunc(idleFunction);
+        break;
+    case MENU_END_ROTATE:
+		glutIdleFunc(NULL);
+        break;
 	}
 
     // 标记mainWindow主窗口进行重绘
@@ -195,6 +202,8 @@ void mainWindowSetupMenu()
 	glutAddMenuEntry("Green", MENU_CHOICE_GREEN);
 	glutAddMenuEntry("Blue", MENU_CHOICE_BLUE);
 	glutAddMenuEntry("White", MENU_CHOICE_WHITE);
+    glutAddMenuEntry("Start rotate", MENU_START_ROTATE);
+    glutAddMenuEntry("End rotate", MENU_END_ROTATE);
     
     // 在主菜单中添加子菜单
 	glutAddSubMenu("Other Square Colors", mainWindowSubmenu);
@@ -326,7 +335,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);    // 启用双重缓冲
 	glutInitWindowSize(width, height);
-	mainWindow = glutCreateWindow("Interaction and Submenu");
+	mainWindow = glutCreateWindow("Interaction and Submenu 2017191151");
 
 	glewExperimental = GL_TRUE;
 	glewInit();
