@@ -34,9 +34,7 @@ Install [*Mingw-w64*](http://mingw-w64.org/) and [*CMake*](https://cmake.org/). 
 </p>
 </details>
 
-**Optional**: install *freeglut* and *glew* yourself. Here we provide *glew 2.1.0* from [there](http://glew.sourceforge.net/) and *freeglut 3.0.0 MinGW Package* from [there](https://www.transmissionzero.co.uk/software/freeglut-devel/). 
-
-这里我们已经提供了 [*glew 2.1.0*](http://glew.sourceforge.net/) 和 [*freeglut 3.0.0 MinGW Package*](https://www.transmissionzero.co.uk/software/freeglut-devel/) 。你也可以自己下载安装 freeglut 和 glew ，请确保 CMake 可以找到他们。
+**Optional**: Install *freeglut* and *glew* yourself. Here we provide *glew 2.1.0* from [there](http://glew.sourceforge.net/) and *freeglut 3.0.0 MinGW Package* from [there](https://www.transmissionzero.co.uk/software/freeglut-devel/). 这里我们已经提供了 [*glew 2.1.0*](http://glew.sourceforge.net/) 和 [*freeglut 3.0.0 MinGW Package*](https://www.transmissionzero.co.uk/software/freeglut-devel/) 你也可以自己下载安装 freeglut 和 glew ，请确保 CMake 可以找到他们。
 
 In *PowerShell* or *cmd*:
 
@@ -50,48 +48,50 @@ cd Path/To/OpenGL-SZU/src/
 
 ## Usage 使用方法
 
-- add header files 添加头文件
-  
-  you can put your header files (like .h) in [/src/include](src/include/). 你可以把头文件（形如.h）添加到[/src/include](src/include/)中。
+Successful build result is `/src/build/main` 每次成功构建后，生成的可执行文件为`/src/build/main`
 
-  Or in [CMakeLists.txt](src/CMakeLists.txt), there are lines:
+### Add header files 添加头文件
 
-  ``` cmake
-    # include
+you can put your header files (like .h) in [/src/include](src/include/). 你可以把头文件（形如.h）添加到[/src/include](src/include/)中。
 
-    if (WIN32)
-        include_directories(${CMAKE_SOURCE_DIR}/glew-2.1.0/include/)
-        include_directories(${CMAKE_SOURCE_DIR}/freeglut-3.0.0-MinGW/include/)
-    endif ()
+Or in [CMakeLists.txt](src/CMakeLists.txt), there are lines:
 
-    include_directories(${CMAKE_SOURCE_DIR}/include)
-  ```
+``` cmake
+# include
 
-  use [`include_directories()`](https://cmake.org/cmake/help/v3.0/command/include_directories.html) to add your headfile files.
+if (WIN32)
+    include_directories(${CMAKE_SOURCE_DIR}/glew-2.1.0/include/)
+    include_directories(${CMAKE_SOURCE_DIR}/freeglut-3.0.0-MinGW/include/)
+endif ()
 
-- add source files 添加源文件
-  
-  In [CMakeLists.txt](src/CMakeLists.txt), there are lines:
+include_directories(${CMAKE_SOURCE_DIR}/include)
+```
 
-  ``` cmake
-  add_executable(main main.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
-  ```
+use [`include_directories()`](https://cmake.org/cmake/help/v3.0/command/include_directories.html) to add your headfile files.
 
-  append your source files Separated by spaces `" "`
+### Add source files 添加源文件
 
-  For example, if you have `src/a.cpp` to compile, above could be 
-  
-  ``` cmake
-  add_executable(main main.cpp a.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
-  ```
+In [CMakeLists.txt](src/CMakeLists.txt), there are lines:
 
-  or
+``` cmake
+add_executable(main main.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
+```
 
-  ``` cmake
-  add_executable(main main.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp) ${CMAKE_SOURCE_DIR}/a.cpp
-  ```
+append your source files separated by spaces `" "`
 
-  For more information, see [add_executable](https://cmake.org/cmake/help/v3.0/command/add_executable.html)
+For example, if you have `src/a.cpp` to compile, above could be 
+
+``` cmake
+add_executable(main main.cpp a.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
+```
+
+or
+
+``` cmake
+add_executable(main main.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp ${CMAKE_SOURCE_DIR}/a.cpp)
+```
+
+For more information, see [add_executable](https://cmake.org/cmake/help/v3.0/command/add_executable.html)
 
 ## Known problems 已知的问题
 
@@ -99,7 +99,11 @@ cd Path/To/OpenGL-SZU/src/
 
   暂时的解决办法：拉伸窗口使其刷新窗口
 
-- 使用Intel集显运行程序，Ubuntu 16.04，程序无法运行，控制台中提示`vshader.glsl failed to compile:
-0:1(10): error: GLSL 3.30 is not supported. Supported versions are: 1.10, 1.20, 1.30, 1.00 ES, 3.00 ES, 3.10 ES, and 3.20 ES`
+- 使用Intel集显运行程序，Ubuntu 16.04，程序无法运行，控制台中提示
+
+  ``` bash
+  vshader.glsl failed to compile:
+  0:1(10): error: GLSL 3.30 is not supported. Supported versions are: 1.10, 1.20, 1.30, 1.00 ES, 3.00 ES, 3.10 ES, and 3.20 ES
+  ```
 
   暂时的解决办法：`export MESA_GL_VERSION_OVERRIDE=3.3`
