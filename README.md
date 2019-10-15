@@ -34,7 +34,9 @@ Install [*Mingw-w64*](http://mingw-w64.org/) and [*CMake*](https://cmake.org/). 
 </p>
 </details>
 
-**Optional**: Install *freeglut* and *glew* yourself. Here we provide *glew 2.1.0* from [there](http://glew.sourceforge.net/) and *freeglut 3.0.0 MinGW Package* from [there](https://www.transmissionzero.co.uk/software/freeglut-devel/). 这里我们已经提供了 [*glew 2.1.0*](http://glew.sourceforge.net/) 和 [*freeglut 3.0.0 MinGW Package*](https://www.transmissionzero.co.uk/software/freeglut-devel/) 你也可以自己下载安装 freeglut 和 glew ，请确保 CMake 可以找到他们。
+**Optional**: Install *freeglut* and *glew* yourself. Here we provide *glew 2.1.0* from [there](http://glew.sourceforge.net/) and *freeglut 3.0.0 MinGW Package* from [there](https://www.transmissionzero.co.uk/software/freeglut-devel/).
+
+这里我们已经提供了 [*glew 2.1.0*](http://glew.sourceforge.net/) 和 [*freeglut 3.0.0 MinGW Package*](https://www.transmissionzero.co.uk/software/freeglut-devel/) 你也可以自己下载安装 *freeglut* 和 *glew* ，请确保 *CMake* 可以找到他们。
 
 In *PowerShell* or *cmd*:
 
@@ -48,7 +50,11 @@ cd Path/To/OpenGL-SZU/src/
 
 ## Usage 使用方法
 
-Successful build result is `/src/build/main` 每次成功构建后，生成的可执行文件为`/src/build/main`
+Successful build result is in `/src/build/`
+
+For different code, you only need to manually override [src/vshader.glsl](src/vshader.glsl), [src/main.cpp](src/main.cpp), [src/fshader.glsl](src/fshader.glsl), *CMake* will copy .glsl and .dll files to `src/build/` automatically.
+
+对于不同的实验代码，你只需要手动覆盖[src/vshader.glsl](src/vshader.glsl), [src/main.cpp](src/main.cpp), [src/fshader.glsl](src/fshader.glsl)，*CMake* 会自动将所需的glsl文件和dll文件复制到`src/build/`
 
 ### Add header files 添加头文件
 
