@@ -26,7 +26,7 @@
  * 致谢：参考代码来自于西蒙弗雷泽大学CMPT361-Assignment
  */
 
-#include "include/Angel.h"
+#include "Angel.h"
 
 #pragma comment(lib, "glew32.lib")
 
