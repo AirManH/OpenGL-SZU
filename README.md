@@ -1,115 +1,137 @@
-# OpenGL-SZU
+-   [OpenGL-SZU](#opengl-szu)
+    -   [安装依赖项](#安装依赖项)
+        -   [Linux](#linux)
+        -   [Windows](#windows)
+    -   [构建](#构建)
+        -   [Linux](#linux-1)
+        -   [Windows](#windows-1)
+    -   [使用方法](#使用方法)
+        -   [添加源文件](#添加源文件)
+        -   [添加头文件](#添加头文件)
+        -   [添加资源文件](#添加资源文件)
 
-Build solution for the course *Interactive Computer Graphics* in SZU.
+OpenGL-SZU
+==========
 
-为深圳大学**计算机图形学**的实验代码提供构建方案。
+为深圳大学计算机图形学的实验代码提供基于 CMake 的构建方案
 
-## Build 构建
+安装依赖项
+----------
 
 ### Linux
 
-install *freeglut* and *glew*
+使用你的包管理器 (*apt, pacman, ...*) 安装如下的包
 
-``` bash
-cd Path/To/OpenGL-SZU/src/
+-   `freeglut` \>= 3
+-   `glew` \>= 2
+-   `cmake`
+
+### Windows
+
+1.  vcpkg
+
+    1.  安装 `vcpkg` (具体请见 [vcpkg 的 github
+        主页](https://github.com/microsoft/vcpkg))
+    2.  `vcpkg install freeglut glew`
+    3.  安装 `cmake` (具体请见 [CMake
+        的官方页面](https://cmake.org/download/))
+
+2.  MSYS2
+
+    1.  安装 `MSYS2` (具体请见 [msys2
+        的官方页面](https://www.msys2.org/))
+    2.  `pacman -S mingw-w64-x86_64-freeglut mingw-w64-x86_64-glew cmake mingw-w64-x86_64-toolchain`
+
+构建
+----
+
+欲知更多有关信息, 请参见 [CMake 官方网站](https://cmake.org),
+[维基百科的构建自动化页面](https://en.wikipedia.org/wiki/Build_automation),
+[维基百科的 CMake 页面](https://en.wikipedia.org/wiki/CMake)
+
+### Linux
+
+``` {.bash}
+cd OpenGL-SZU
+cmake -B build
+cd build
+make
 ```
 
-`sh ./build.sh` to build
+### Windows
 
-`sh ./clean.sh` to clean the build
+1.  Visual Studio
 
-### Windows with Mingw-w64
+    1.  进入此仓库的根目录 `cd OpenGL-SZU`
 
-Install [*Mingw-w64*](http://mingw-w64.org/) and [*CMake*](https://cmake.org/). Set **PATH**.
+    2.  `cmake -G "Visual Studio 14 2015 Win64" -B build`,
 
-<details><summary>如何安装Mingw-w64</summary>
+        这个命令会生成用于 VS2015 的工程文件, 如果要生成其他 VS
+        版本的工程文件, 请参照 `cmake --help` 的输出结果中 *Generators*
+        部分的内容, 对 `"Visual Studio 14 2015 Win64"` 进行相应修改
 
-<p>
+    3.  打开 `build/` 目录下的 `.sln` 文件
 
-两个推荐方案
+    如果使用 Visual Studio 2019, 则可以省略以上步骤, 直接打开此仓库.
+    具体请见 [Visual Studio
+    的这篇文档](https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=vs-2019)
 
-1. 在线安装：进入[*sourceforge.net*](https://sourceforge.net/projects/mingw-w64/files/)，找到*MinGW-W64 Online Installer MinGW-W64-install.exe*，点击下载
-2. 离线安装：进入[*sourceforge.net*](https://sourceforge.net/projects/mingw-w64/files/)，依次点击（下载量较多的）*Toolchains targetting Win64*，*Personal Builds*，*mingw-builds*，*{最新版本}*，*threads-posix*，*seh*，下载对应的压缩包。
+2.  Visual Studio Code
 
-</p>
-</details>
+    1.  在 VSCode 中, 安装插件:
+        [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools),
+        [CMake
+        Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+    2.  在 VSCode 中打开此仓库
+    3.  打开命令面板 (`Ctrl+Shift+P`), 运行 **CMake: Select a Kit**
+        来选择你喜欢的构建方式
+    4.  点击下方的状态栏里的 **build**
 
-**Optional**: Install *freeglut* and *glew* yourself. Here we provide *glew 2.1.0* from [there](http://glew.sourceforge.net/) and *freeglut 3.0.0 MinGW Package* from [there](https://www.transmissionzero.co.uk/software/freeglut-devel/).
+    具体请见 [Visual Studio Code
+    的这篇官方教程](https://code.visualstudio.com/docs/cpp/cmake-linux)
 
-这里我们已经提供了 [*glew 2.1.0*](http://glew.sourceforge.net/) 和 [*freeglut 3.0.0 MinGW Package*](https://www.transmissionzero.co.uk/software/freeglut-devel/) 你也可以自己下载安装 *freeglut* 和 *glew* ，请确保 *CMake* 可以找到他们。
+3.  CLion
 
-In *PowerShell* or *cmd*:
+    1.  在 Clion 中, 选择 *File - Open*, 选择此仓库的根目录 (具体请见
+        [此页面](https://www.jetbrains.com/help/clion/creating-new-project-from-scratch.html#open-prj))
 
-``` cmd
-cd Path/To/OpenGL-SZU/src/
+使用方法
+--------
+
+-   此仓库默认的源文件可以经过编译得到一个[俄罗斯方块](https://en.wikipedia.org/wiki/Tetris)游戏,
+    屏幕截图如下所示 ![](./readme-img/tetris-screenshot.png)
+-   不限于默认的俄罗斯方块游戏，这里提供的代码也可以构建生成其它程序，只需要进行很小的修改，具体请见下方的说明
+-   默认情况下, 生成的可执行文件会位于构建目录 (`build`) 下的 `bin`
+    文件夹中
+
+### 添加源文件
+
+1.  将新的源文件放置在 `src` 文件夹下
+2.  在 [CMakeList.txt](./CMakeLists.txt) 文件的 `# add source files`
+    部分中添加对应的条目
+
+比如你添加了 `src/camera.cpp` 文件, 那么新的 CMakeLists
+文件中有关源文件的部分应当如下:
+
+``` {.cmake}
+# add source files
+target_sources(main
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/InitShader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/camera.cpp)  # 新加入的源文件在这里
 ```
 
-`./build.bat` to build
+### 添加头文件
 
-`./clean.bat` to clean the build
+1.  将新的头文件放置在 `include` 文件夹下
+2.  在源文件中正确地进行引用
 
-## Usage 使用方法
+比如你添加了 `include/camera.hpp` 这个头文件.
+如果要在源代码中引用此文件, 使用语句 `#include <camera.hpp>`
 
-Successful build result is in `/src/build/`
+### 添加资源文件
 
-For different code, you only need to manually override [src/vshader.glsl](src/vshader.glsl), [src/main.cpp](src/main.cpp), [src/fshader.glsl](src/fshader.glsl), *CMake* will copy .glsl and .dll files to `src/build/` automatically.
-
-对于不同的实验代码，你只需要手动覆盖[src/vshader.glsl](src/vshader.glsl), [src/main.cpp](src/main.cpp), [src/fshader.glsl](src/fshader.glsl)，*CMake* 会自动将所需的glsl文件和dll文件复制到`src/build/`
-
-### Add header files 添加头文件
-
-you can put your header files (like .h) in [/src/include](src/include/). 你可以把头文件（形如.h）添加到[/src/include](src/include/)中。
-
-Or in [CMakeLists.txt](src/CMakeLists.txt), there are lines:
-
-``` cmake
-# include
-
-if (WIN32)
-    include_directories(${CMAKE_SOURCE_DIR}/glew-2.1.0/include/)
-    include_directories(${CMAKE_SOURCE_DIR}/freeglut-3.0.0-MinGW/include/)
-endif ()
-
-include_directories(${CMAKE_SOURCE_DIR}/include)
-```
-
-use [`include_directories()`](https://cmake.org/cmake/help/v3.0/command/include_directories.html) to add your headfile files.
-
-### Add source files 添加源文件
-
-In [CMakeLists.txt](src/CMakeLists.txt), there are lines:
-
-``` cmake
-add_executable(main main.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
-```
-
-append your source files separated by spaces `" "`
-
-For example, if you have `src/a.cpp` to compile, above could be 
-
-``` cmake
-add_executable(main main.cpp a.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp)
-```
-
-or
-
-``` cmake
-add_executable(main main.cpp ${CMAKE_SOURCE_DIR}/Common/InitShader.cpp ${CMAKE_SOURCE_DIR}/a.cpp)
-```
-
-For more information, see [add_executable](https://cmake.org/cmake/help/v3.0/command/add_executable.html)
-
-## Known problems 已知的问题
-
-- 使用Intel集显运行程序，Windows 10, 打开窗口时为白屏
-
-  暂时的解决办法：拉伸窗口使其刷新窗口
-
-- 使用Intel集显运行程序，Ubuntu 16.04，程序无法运行，控制台中提示
-
-  ``` bash
-  vshader.glsl failed to compile:
-  0:1(10): error: GLSL 3.30 is not supported. Supported versions are: 1.10, 1.20, 1.30, 1.00 ES, 3.00 ES, 3.10 ES, and 3.20 ES
-  ```
-
-  暂时的解决办法：`export MESA_GL_VERSION_OVERRIDE=3.3`
+把你的资源文件 (例如 `.glsl`, `.jpg`) 放置在 `resource` 文件夹中,
+所有位于 `resource` 文件夹中的文件都自动会被拷贝至可执行文件所在的目录
+(`bin`) 中
