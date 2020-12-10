@@ -1,3 +1,5 @@
+[[https://github.com/AirManH/OpenGL-SZU/actions?query=workflow%3ACI][https://github.com/AirManH/OpenGL-SZU/workflows/CI/badge.svg]]
+
 * OpenGL-SZU
 
 为深圳大学计算机图形学的实验代码提供基于 CMake 的构建方案

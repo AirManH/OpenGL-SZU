@@ -10,13 +10,13 @@
         -   [添加头文件](#添加头文件)
         -   [添加资源文件](#添加资源文件)
 
-OpenGL-SZU
-==========
+[![](https://github.com/AirManH/OpenGL-SZU/workflows/CI/badge.svg)](https://github.com/AirManH/OpenGL-SZU/actions?query=workflow%3ACI)
+
+# OpenGL-SZU
 
 为深圳大学计算机图形学的实验代码提供基于 CMake 的构建方案
 
-安装依赖项
-----------
+## 安装依赖项
 
 ### Linux
 
@@ -42,8 +42,7 @@ OpenGL-SZU
         的官方页面](https://www.msys2.org/))
     2.  `pacman -S mingw-w64-x86_64-freeglut mingw-w64-x86_64-glew cmake mingw-w64-x86_64-toolchain`
 
-构建
-----
+## 构建
 
 欲知更多有关信息, 请参见 [CMake 官方网站](https://cmake.org),
 [维基百科的构建自动化页面](https://en.wikipedia.org/wiki/Build_automation),
@@ -95,8 +94,7 @@ make
     1.  在 Clion 中, 选择 *File - Open*, 选择此仓库的根目录 (具体请见
         [此页面](https://www.jetbrains.com/help/clion/creating-new-project-from-scratch.html#open-prj))
 
-使用方法
---------
+## 使用方法
 
 -   此仓库默认的源文件可以经过编译得到一个[俄罗斯方块](https://en.wikipedia.org/wiki/Tetris)游戏,
     屏幕截图如下所示 ![](./readme-img/tetris-screenshot.png)
