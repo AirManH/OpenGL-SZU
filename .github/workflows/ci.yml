@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get -qq install cmake
-          sudo apt-get -qq install libglew-dev freeglut3
+          sudo apt-get -qq install libglew-dev freeglut3-dev
 
       - name: Build
         run: |
